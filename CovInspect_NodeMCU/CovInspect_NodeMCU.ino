@@ -23,10 +23,10 @@ void setup() {
 
 void loop() {
   Serial.println(mlx.readObjectTempF() + 7);
-  String hr = String(s.read());
+  String hr = String(s.read()/2);
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
-    http.begin("http://x.herokuapp.com/entrypoint?username=neeltron&hr="+hr+"&ir="+String(mlx.readObjectTempF()));
+    http.begin("http://covinspect.herokuapp.com/input?ir="+String(mlx.readObjectTempF())+"&hr="+hr);
     int httpCode = http.GET();
     if (httpCode > 0) {
       String payload = http.getString();
